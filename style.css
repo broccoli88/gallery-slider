@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+  line-height: 1.5;
+}
+
+h1 {
+  font-size: 10rem;
+  color: white;
+
+  font-family: "Bebas Neue", cursive;
+
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.wrapper {
+  max-width: 100vw;
+  min-height: 100vh;
+
+  background-color: hsl(180, 100%, 5%);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10rem;
+
+  overflow-x: hidden;
+}
+
+.images {
+  width: 600px;
+  height: 400px;
+
+  display: flex;
+  gap: 2rem;
+
+  position: relative;
+}
+
+.img-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+
+  z-index: 10;
+}
+
+.img-container > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.inactive {
+  opacity: 0.1;
+}
+
+.buttons {
+  width: 200px;
+  padding: 2.5rem;
+
+  display: flex;
+  gap: 2rem;
+}
+
+.btn-left,
+.btn-right {
+  background-color: transparent;
+  border: 0;
+
+  cursor: pointer;
+}
+
+.btn-left:active,
+.btn-right:active {
+  filter: brightness(130%);
+  transform: scale(0.8);
+}
