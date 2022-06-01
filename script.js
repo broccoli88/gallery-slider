@@ -1,34 +1,49 @@
-import anime from "./node_modules/animejs/lib/anime.es.js";
-
-const imageContainers = document.querySelectorAll(".img-container");
-const images = document.querySelector(".images");
-
 const options = {
-  root: images,
+  root: null,
   rootMargin: "0px",
-  threshold: 1,
+  threshold: 0.2,
 };
-const io = new IntersectionObserver((entries) => {
+
+const io = new IntersectionObserver((entries, io) => {
   entries.forEach((entry) => {
-    if (entry.intersectionRatio === 1) {
-      entry.target.classList.remove("inactive");
-      console.log(entry);
-    } else {
-      entry.target.classList.add("inactive");
+    if (entry.isIntersecting) {
+      entry.target.firstElementChild.src =
+        entry.target.firstElementChild.dataset.src;
+
+      io.unobserve(entry.target);
     }
   });
 }, options);
 
-imageContainers.forEach((container, index) => {
-  if (index === 1) {
-    container.style.transform = `translateX(-650px)`;
-  } else if (index % 2 === 0) {
-    container.style.transform = `translate(${index * 325}px)`;
-  } else if (index % 2 !== 0) {
-    container.style.transform = `translateX(-${index * 325 + 325}px)`;
-  }
-
-  io.observe(container);
+const boxes = document.querySelectorAll(".img-container");
+boxes.forEach((box) => {
+  io.observe(box);
 });
-// console.dir(images);
-// console.dir(imageContainers[0]);
+
+// CHANGE LAYOUT
+
+const oneColumnButton = document.querySelectorAll(".btn")[0];
+const twoColumnButton = document.querySelectorAll(".btn")[1];
+const threeColumnButton = document.querySelectorAll(".btn")[2];
+const gallery = document.querySelector(".one-column");
+
+oneColumnButton.addEventListener("click", () => {
+  if (gallery.classList.contains("one-column")) return;
+  gallery.classList.add("one-column");
+  gallery.classList.remove("two-columns");
+  gallery.classList.remove("three-columns");
+});
+
+twoColumnButton.addEventListener("click", () => {
+  if (gallery.classList.contains("two-columns")) return;
+  gallery.classList.add("two-columns");
+  gallery.classList.remove("one-column");
+  gallery.classList.remove("three-columns");
+});
+
+threeColumnButton.addEventListener("click", () => {
+  if (gallery.classList.contains("three-columns")) return;
+  gallery.classList.add("three-columns");
+  gallery.classList.remove("two-columns");
+  gallery.classList.remove("one-column");
+});
